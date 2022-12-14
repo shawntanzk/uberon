@@ -8,7 +8,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   diff-reports:
-  if: ${{ github.event.issue.pull_request }}
+    if: ${{ github.event.issue.pull_request }}
     runs-on: macos-latest
     permissions:
       contents: read
