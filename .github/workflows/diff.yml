@@ -1,14 +1,9 @@
 name: 'Create ROBOT diffs on Pull requests'
 
-on:
-  # Triggers the workflow on pull request events for the master branch
-  pull_request:
-    branches: [ master ]
-    paths:
-      - 'src/ontology/uberon-edit.obo'
+on: 
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  issue_comment:
+        types: [created]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -31,6 +26,8 @@ jobs:
         run: docker pull obolibrary/odklite
         if: steps.check.outputs.triggered == 'true'
       # Checks-out current branch
+      - uses: xt0rted/pull-request-comment-branch@v1
+        id: comment-branch
       - uses: actions/checkout@v3
         if: steps.check.outputs.triggered == 'true'
       # Checks-out master branch under "master" directory
@@ -113,4 +110,5 @@ jobs:
         with:
           file: "../../edit-comment.md"
           identifier: "UNREASONED"
+
 
